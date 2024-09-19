@@ -1,22 +1,31 @@
-import { useEffect, useState } from 'react';
-import JobList from '../components/JobList';
-import { getJobs } from '../lib/graphql/queries';
+import { useState } from "react";
+import JobList from "../components/JobList";
+import PaginationBar from '../components/PaginationBar';
+import { useJobs } from "../lib/graphql/hooks";
 
-getJobs().then((jobs) => console.log('jobs:', jobs));
+const JOBS_PER_PAGE = 10;
 
 function HomePage() {
-  const [jobs, setJobs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { jobs, loading, error } = useJobs(JOBS_PER_PAGE, (currentPage - 1) * JOBS_PER_PAGE);
 
-  useEffect(() => {
-    getJobs().then(setJobs);
-  }, []);
+  if (loading) {
+    return <div className="has-text-centered">Loading...</div>;
+  }
+  
+  if (error) {
+    return <div className="notification is-danger">Data unavailable</div>;
+  }
+
+  const totalPages = Math.ceil(jobs.totalCount / JOBS_PER_PAGE);
 
   return (
-    <div>
-      <h1 className="title">
-        Job Board
-      </h1>
-      <JobList jobs={jobs} />
+    <div className="container mt-5">
+      <h1 className="title has-text-centered">Job Seeker App</h1>
+      <div className="box">
+        <PaginationBar currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+        <JobList jobs={jobs.items} />
+      </div>
     </div>
   );
 }

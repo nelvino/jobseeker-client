@@ -15,14 +15,20 @@ function JobItem({ job }) {
   const title = job.company
     ? `${job.title} at ${job.company.name}`
     : job.title;
+  
   return (
     <li className="media">
-      <div className="media-left has-text-grey">
-        {formatDate(job.date)}
+      <div className="media-left">
+        <p className="has-text-grey">{formatDate(job.date)}</p>
       </div>
       <div className="media-content">
-        <Link to={`/jobs/${job.id}`}>
+        <Link to={`/jobs/${job.id}`} className="title is-5 has-text-link">
           {title}
+        </Link>
+      </div>
+      <div className="media-right">
+        <Link to={`/jobs/${job.id}`} className="button is-small is-info">
+          View Details
         </Link>
       </div>
     </li>

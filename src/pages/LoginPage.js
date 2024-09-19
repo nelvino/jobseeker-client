@@ -18,42 +18,34 @@ function LoginPage({ onLogin }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="field">
-        <label className="label">
-          Email
-        </label>
-        <div className="control">
-          <input className="input" type="email" required value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
+    <div className="container mt-5">
+      <form onSubmit={handleSubmit} className="box">
+        <div className="field">
+          <label className="label">Email</label>
+          <div className="control">
+            <input className="input is-fullwidth" type="email" required value={email}
+              onChange={(event) => setEmail(event.target.value)} />
+          </div>
         </div>
-      </div>
-      <div className="field">
-        <label className="label">
-          Password
-        </label>
-        <div className="control">
-          <input className="input" type="password" required value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
+        <div className="field">
+          <label className="label">Password</label>
+          <div className="control">
+            <input className="input is-fullwidth" type="password" required value={password}
+              onChange={(event) => setPassword(event.target.value)} />
+          </div>
         </div>
-      </div>
-      {error && (
-        <div className="message is-danger">
-          <p className="message-body">
-            Login failed
-          </p>
+        {error && (
+          <div className="notification is-danger">
+            <p>Login failed</p>
+          </div>
+        )}
+        <div className="field">
+          <div className="control">
+            <button type="submit" className="button is-link is-fullwidth">Login</button>
+          </div>
         </div>
-      )}
-      <div className="field">
-        <div className="control">
-          <button type="submit" className="button is-link">
-            Login
-          </button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 

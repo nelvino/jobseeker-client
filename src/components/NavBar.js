@@ -8,33 +8,42 @@ function NavBar({ user, onLogout }) {
   };
 
   const loggedIn = Boolean(user);
+
   return (
-    <nav className="navbar">
-      <div className="navbar-start">
+    <nav className="navbar is-light" role="navigation" aria-label="main navigation">
+      <div className="navbar-brand">
         <Link className="navbar-item" to="/">
-          Home
+        Job Seeker App
         </Link>
       </div>
-      {loggedIn ? (
-        <div className="navbar-end">
-          <span className="navbar-item has-text-grey">
-            {user.email}
-          </span>
-          <Link className="navbar-item" to="/jobs/new">
-            Post Job
-          </Link>
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a className="navbar-item" onClick={handleLogout}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div className="navbar-end">
-          <Link className="navbar-item" to="/login">
-            Login
+
+      <div className="navbar-menu">
+        <div className="navbar-start">
+          <Link className="navbar-item" to="/">
+            Home
           </Link>
         </div>
-      )}
+
+        <div className="navbar-end">
+          {loggedIn ? (
+            <>
+              <span className="navbar-item has-text-grey">
+                {user.email}
+              </span>
+              <Link className="navbar-item" to="/jobs/new">
+                Post Job
+              </Link>
+              <a className="navbar-item" onClick={handleLogout}>
+                Logout
+              </a>
+            </>
+          ) : (
+            <Link className="navbar-item" to="/login">
+              Login
+            </Link>
+          )}
+        </div>
+      </div>
     </nav>
   );
 }
